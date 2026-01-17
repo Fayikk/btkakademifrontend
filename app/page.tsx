@@ -6,6 +6,7 @@ import { Parent } from "./Components/Parent";
 import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
 import { fetchCategories } from "@/lib/redux/features/categorySlice";
 import Link from "next/link";
+import Navbar from "./Components/Navbar";
 export default function Home() {
   const dispatch = useAppDispatch();
   const categories = useAppSelector((state) => state.category);
@@ -83,7 +84,7 @@ useEffect(()=>{
  
   
     <div className="min-h-screen bg-gray-50">
-      {/* <Navbar /> */}
+      <Navbar />
       
       <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         {/* Hero Section */}
