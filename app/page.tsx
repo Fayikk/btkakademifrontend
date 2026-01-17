@@ -75,64 +75,23 @@ useEffect(()=>{
     )
   }
 
+  console.log("categories:",categories);
+
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-white" style={{color:'black'}}>
   
 
-    <Parent></Parent>
-
-    <button onClick={()=>router.push("/Products/33")}>Go Details</button>
-
-    <button onClick={goToLoginPage}>Sign In</button>
-  
-   <button onClick={()=>setCount((x)=>x-1)} >Decrement</button>
-  {/* const [isLoggedIn,setIsLoggedIn] = useState(true); */}
-   
-   
-    {
-        isLoggedIn && <div style={{color:'green'}}> Welcome User! </div>
-    }
-
-    {
-        isLoggedIn ? <div style={{color:'blue'}}> You are logged in </div> : <div style={{color:'red'}}> Please log in </div>
-    }
-
-<ul>
-    {
-      users.map((user) => (
-      <li key={user.id} >{user.name} {CalculateAvg(user.Exam1,user.Exam2)}</li>
-      ))
-    }
-
-</ul>
-
-
-  {/* const [name,setName] = useState(""); */}
-
-
-<input onChange={(e) => setName(e.target.value)} ></input>
-<h5>Your Name Is : {name}</h5>
-
-
-
-
-    <h1 ref={inputRef} style={{color:'red'}} > {count} </h1>
-   
-   <button onClick={()=>setCount((x)=>x+1)} >Increment</button>
-
-
-    <button onClick={()=>{
-      if(inputRef.current){
-        inputRef.current.style.color = 'orange';
-      }
-    }} >Change Color</button>
-
-    <div className="mt-10" style={{color:'red'}}>
-      <h2> {Sum("Sum of 5 and 10 is",5,10)}  </h2>
-      <h2> Multiple of 5 and 10 is : {multiple(5,10)} </h2>
-    </div>
-
+      <ul>
+        {
+          categories?.categories && categories.categories.data.length > 0 && 
+          (
+            categories.categories.data.map((category) => (
+              <li key={category.id}>{category.id} - {category.categoryName} - {category.description}</li>
+            ))
+          ) 
+        }
+      </ul>
 
     </div>
   );
