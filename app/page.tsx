@@ -3,13 +3,16 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Parent } from "./Components/Parent";
-
+import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
+import { fetchCategories } from "@/lib/redux/features/categorySlice";
 export default function Home() {
+  const dispatch = useAppDispatch();
+  const categories = useAppSelector((state) => state.category);
+
 
   const [count,setCount] = useState(0);
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
-  const [isLoading,setIsLoading] = useState(false);
   const [isLoggedIn,setIsLoggedIn] = useState(true);
   const [name,setName] = useState("");
   const [users,setUsers] = useState([
@@ -21,14 +24,24 @@ export default function Home() {
   ])
 
 
+
+
+  useEffect(()=>{
+    const fetchData = async () => {
+      await dispatch(fetchCategories()).unwrap();
+    };
+    fetchData();
+  },[dispatch])
+
+
+
+
+
   
   const goToLoginPage = () => {
     router.push("/Login");
   }
   
-
-
-
   useEffect(()=>{
     console.log("Component Mounted");
 
@@ -54,7 +67,7 @@ useEffect(()=>{
   }
 
 
-  if(isLoading){
+  if(categories.isLoading){
     return (
       <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-white" style={{color:'black'}}>
         <h1> Loading... </h1>
