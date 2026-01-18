@@ -11,7 +11,7 @@ import { fetchProductsByCategoryId } from "@/lib/redux/features/productSlice";
 export default function Home() {
   const dispatch = useAppDispatch();
   const categories = useAppSelector((state) => state.category);
-
+  const products = useAppSelector((state) => state.product);
 
   const [count,setCount] = useState(0);
   const router = useRouter();
@@ -25,8 +25,6 @@ export default function Home() {
     {id:4,name:'Mahmut',Exam1:92,Exam2:81},
     {id:5,name:'Onur',Exam1:74,Exam2:89},
   ])
-
-
 
 
   useEffect(()=>{
@@ -127,35 +125,35 @@ useEffect(()=>{
         {/* Featured Products */}
        <div>
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Öne Çıkan Ürünler</h2>
-          {isLoading ? (
+          {products.isLoading ? (
             <div className="text-center py-12">
               <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
             </div>
-          ) : products.length > 0 ? (
+          ) : products.products && products.products?.data.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {products.slice(0, 8).map((product) => (
+              {products.products?.data.slice(0, 8).map((product) => (
                 <Link
                   key={product.id}
                   href={`/products/${product.id}`}
                   className="bg-white rounded-lg shadow hover:shadow-xl transition overflow-hidden"
                 >
                   <div className="aspect-square bg-gray-200 relative">
-                    {product.images[0]?.imageUrl && (
+                    {product.productImages[0]?.imageUrl && (
                       <img
-                        src={`https://localhost:7000${product.images[0].imageUrl}`}
-                        alt={product.name}
+                        src={`https://localhost:7230${product.productImages[0]?.imageUrl}`}
+                        alt={product.productName}
                         className="w-full h-full object-cover"
                       />
                     )}
                   </div>
                   <div className="p-4">
-                    <h3 className="font-semibold text-gray-900 mb-2">{product.name}</h3>
-                    <p className="text-sm text-gray-600 mb-2 line-clamp-2">{product.description}</p>
+                    <h3 className="font-semibold text-gray-900 mb-2">{product.productName}</h3>
+                    <p className="text-sm text-gray-600 mb-2 line-clamp-2">{product.productDescription}</p>
                     <div className="flex justify-between items-center">
                       <span className="text-xl font-bold text-blue-600">
                         {product.price.toFixed(2)} ₺
                       </span>
-                      <span className="text-sm text-gray-500">{product.categoryName}</span>
+                      {/* <span className="text-sm text-gray-500">{product.categoryName}</span> */}
                     </div>
                   </div>
                 </Link>

@@ -22,4 +22,10 @@ export interface ProductDTO{
     stockAmount:number;
     price:number;
     categoryId:string;
+    productImages:ProductImageDTO[]
+}
+
+export interface ProductImageDTO{
+    id:string,
+    imageUrl:string
 }
