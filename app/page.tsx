@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
 import { fetchCategories } from "@/lib/redux/features/categorySlice";
 import Link from "next/link";
 import Navbar from "./Components/Navbar";
+import { fetchProductsByCategoryId } from "@/lib/redux/features/productSlice";
 export default function Home() {
   const dispatch = useAppDispatch();
   const categories = useAppSelector((state) => state.category);
@@ -29,13 +30,14 @@ export default function Home() {
 
 
   useEffect(()=>{
-    const fetchData = async () => {
-      await dispatch(fetchCategories()).unwrap();
-    };
-    fetchData();
+   dispatch(fetchCategories());
+   dispatch(fetchProductsByCategoryId());
   },[dispatch])
 
 
+  const filterForCategory = (categoryId:string|undefined) => {
+    dispatch(fetchProductsByCategoryId(categoryId));
+  }
 
 
 
@@ -109,21 +111,21 @@ useEffect(()=>{
             <h2 className="text-2xl font-bold text-gray-900 mb-4">Kategoriler</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {categories.categories.data.map((category) => (
-                <Link
+                <div
                   key={category.id}
-                  href={`/products?category=${category.id}`}
+                  onClick={()=>filterForCategory(category.id)}
                   className="bg-white p-4 rounded-lg shadow hover:shadow-lg transition text-center"
                 >
                   <h3 className="font-semibold text-gray-900">{category.categoryName}</h3>
                   <p className="text-sm text-gray-600 mt-2">{category.description}</p>
-                </Link>
+                </div>
               ))}
             </div>
           </div>
         )}
 
         {/* Featured Products */}
-        {/* <div>
+       <div>
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Öne Çıkan Ürünler</h2>
           {isLoading ? (
             <div className="text-center py-12">
@@ -164,7 +166,7 @@ useEffect(()=>{
               <p className="text-gray-500">Henüz ürün bulunmamaktadır.</p>
             </div>
           )}
-        </div> */}
+        </div> 
       </main>
     </div>
    
