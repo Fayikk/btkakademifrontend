@@ -29,3 +29,28 @@ export interface ProductImageDTO{
     id:string,
     imageUrl:string
 }
+
+
+export interface User {
+    id:string,
+    email:string,
+    firstName:string,
+    lastName:string,
+    token:string,
+    roles:string[]
+}
+
+export interface LoginRequest {
+    email:string,
+    password:string
+}
+
+
+export interface RegisterRequest{
+    email:string,
+    firstName:string,
+    lastName:string,
+    userName:string,
+    password:string,
+    confirmPassword:string
+}
