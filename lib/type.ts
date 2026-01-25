@@ -54,3 +54,16 @@ export interface RegisterRequest{
     password:string,
     confirmPassword:string
 }
+
+
+export interface BasketResponseDTO{
+    userId:string,
+    items:BasketItemResponseDTO[]
+}
+
+
+export interface BasketItemResponseDTO{
+    productId:string,
+    quantity:number,
+    product:ProductDTO
+}
