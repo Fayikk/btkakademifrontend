@@ -78,3 +78,19 @@ export interface BasketDTO{
     quantity:number,
     userId:string
 }
+
+
+//  public string CVV { get; set; } 
+//  public string ExpireYear { get; set; }
+//  public string ExpireMonth { get; set; }
+//  public string CardNumber { get; set; }
+
+//  public string CardHolderName { get; set; }
+
+export interface PaymentRequestDTO {
+    cvv:string,
+    expireYear:string,
+    expireMonth:string,
+    cardNumber:string,
+    cardHolderName:string
+}

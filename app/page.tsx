@@ -10,6 +10,7 @@ import Navbar from "./Components/Navbar";
 import { fetchProductsByCategoryId } from "@/lib/redux/features/productSlice";
 import { addBasket, fetchBaskets } from "@/lib/redux/features/basketSlice";
 import { BasketDTO } from "@/lib/type";
+import { toast } from "react-toastify";
 export default function Home() {
   const dispatch = useAppDispatch();
   const categories = useAppSelector((state) => state.category);
@@ -86,6 +87,7 @@ useEffect(()=>{
     }
      dispatch(addBasket(basketRequestModel)).then((res) => {
        dispatch(fetchBaskets())
+       toast("Product Added To Basket")
      })
   }
 
