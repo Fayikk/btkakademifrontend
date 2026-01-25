@@ -67,3 +67,14 @@ export interface BasketItemResponseDTO{
     quantity:number,
     product:ProductDTO
 }
+
+//  public Guid ProductId { get; set; }
+//  public int Quantity { get; set; }
+//  public string UserId { get; set; }
+
+
+export interface BasketDTO{
+    productId:string,
+    quantity:number,
+    userId:string
+}

@@ -8,11 +8,13 @@ import { fetchCategories } from "@/lib/redux/features/categorySlice";
 import Link from "next/link";
 import Navbar from "./Components/Navbar";
 import { fetchProductsByCategoryId } from "@/lib/redux/features/productSlice";
+import { addBasket, fetchBaskets } from "@/lib/redux/features/basketSlice";
+import { BasketDTO } from "@/lib/type";
 export default function Home() {
   const dispatch = useAppDispatch();
   const categories = useAppSelector((state) => state.category);
   const products = useAppSelector((state) => state.product);
-
+  const {user} = useAppSelector((state) => state.auth);
   const [count,setCount] = useState(0);
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -67,6 +69,29 @@ useEffect(()=>{
   const multiple = (a:number,b:number) => {
     return a * b;
   }
+
+
+
+  // productId:string,
+  //   quantity:number,
+  //   userId:string
+
+
+  const handleAddBasket = (id:string) => {
+
+    const basketRequestModel : BasketDTO = {
+      productId:id,
+      quantity:1,
+      userId:user!.id
+    }
+     dispatch(addBasket(basketRequestModel)).then((res) => {
+       dispatch(fetchBaskets())
+     })
+  }
+
+
+
+
 
 
   if(categories.isLoading){
@@ -153,7 +178,17 @@ useEffect(()=>{
                       <span className="text-xl font-bold text-blue-600">
                         {product.price.toFixed(2)} ₺
                       </span>
-                      {/* <span className="text-sm text-gray-500">{product.categoryName}</span> */}
+                     <button
+                      onClick={(e) =>{
+                        e.preventDefault();
+                        e.stopPropagation();
+
+                         handleAddBasket(product.id)
+                      }}
+                      className="text-blue-600 hover:text-blue-800 text-sm font-medium"
+                    >
+                      Sepete Ekle
+                    </button>
                     </div>
                   </div>
                 </Link>

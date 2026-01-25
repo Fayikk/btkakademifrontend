@@ -1,4 +1,4 @@
-import { BasketResponseDTO, CategoryDTO, ResponseModel } from "@/lib/type";
+import { BasketDTO, BasketResponseDTO, CategoryDTO, ResponseModel } from "@/lib/type";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { api } from "../services/api";
 
@@ -33,6 +33,25 @@ export const fetchBaskets = createAsyncThunk(
 )
 
 
+
+export const addBasket = createAsyncThunk(
+    'basket/addBasket',
+    async (requestBody:BasketDTO,{rejectWithValue}) => {
+        try{
+
+            const response = await api.post<boolean>('/Basket',requestBody);
+            return response;
+
+        }catch{
+            return rejectWithValue("Add Basket Failed")
+        }
+    }
+)
+
+
+
+
+
 const basketSlice = createSlice({
     name:'baskets',
     initialState,
@@ -47,6 +66,16 @@ const basketSlice = createSlice({
             state.baskets = action.payload;
         })
         .addCase(fetchBaskets.rejected,(state,action) => {
+            state.isLoading = false;
+            state.error = action.payload as string;
+        }).addCase(addBasket.pending,(state) => {
+            state.isLoading = true;
+            state.error = null;
+        })
+        .addCase(addBasket.fulfilled,(state,action) => {
+            state.isLoading = false;
+        })
+        .addCase(addBasket.rejected,(state,action) => {
             state.isLoading = false;
             state.error = action.payload as string;
         })
