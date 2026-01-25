@@ -47,7 +47,7 @@ export default function NavBar(){
 
           <div className="flex items-center">
             <Link
-              href="/basket"
+              href="/Basket"
               className="relative p-2 text-gray-400 hover:text-gray-500 mr-4"
             >
               <svg
