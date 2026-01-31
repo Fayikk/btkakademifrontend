@@ -3,7 +3,8 @@ import { Provider } from "react-redux";
 import { store } from "./store";
 import { useEffect } from "react";
 import { loadUserFromStorage } from "./features/authSlice";
-  import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { fetchBaskets } from "./features/basketSlice";
 
 export function ReduxProvider({children}:{children:React.ReactNode}){
