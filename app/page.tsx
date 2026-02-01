@@ -167,7 +167,7 @@ useEffect(()=>{
                   <div className="aspect-square bg-gray-200 relative">
                     {product.productImages[0]?.imageUrl && (
                       <img
-                        src={`https://localhost:7230${product.productImages[0]?.imageUrl}`}
+                        src={`http://20.220.31.38${product.productImages[0]?.imageUrl}`}
                         alt={product.productName}
                         className="w-full h-full object-cover"
                       />

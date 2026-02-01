@@ -53,7 +53,7 @@ return(
                     <div className="w-24 h-24 bg-gray-200 rounded overflow-hidden shrink-0">
                       {item.product.imageUrl && (
                         <img
-                          src={`https://localhost:7230${item.product.productImages[0].imageUrl}`}
+                          src={`http://20.220.31.38${item.product.productImages[0].imageUrl}`}
                           alt={item.product.productName}
                           className="w-full h-full object-cover"
                         />
